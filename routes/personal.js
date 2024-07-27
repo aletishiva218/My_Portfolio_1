@@ -11,7 +11,7 @@ const getData = async (req, res) => {
     cv: req.headers.host + "/Shiva_Aleti_Resume.pdf",
     ...getData._doc,
   };
-  res.json({ personal: getData });
+  res.json({ status:"Ok",personal: getData });
 };
 
 const updatedData = async (req, res) => {
@@ -29,7 +29,7 @@ const updatedData = async (req, res) => {
 
     await personal.updateOne({}, { $set: data });
 
-    res.json({ message: "details updated successfully" });
+    res.json({status:"Ok", message: "details updated successfully" });
   } catch (err) {
     res.json({ error: err });
   }

@@ -6,7 +6,7 @@ const secretKey = process.env.SECRET_KEY;
 
 const getCertificates = async (req, res) => {
   const getCertificates = await certificates.find({});
-  res.json({ certificates: getCertificates });
+  res.json({status:"Ok", certificates: getCertificates });
 };
 
 const updateCertificate = async (req, res) => {
@@ -27,7 +27,7 @@ const updateCertificate = async (req, res) => {
 
     await certificates.updateOne({ _id: id }, { $set: data });
 
-    res.json({ message: "certificate updated successfully" });
+    res.json({status:"Ok", message: "certificate updated successfully" });
   } catch (err) {
     res.json({ error: err });
   }
@@ -50,7 +50,7 @@ const createCertificate = async (req, res) => {
 
     await certificates.create(data);
 
-    res.json({ message: "certificate added successfully" });
+    res.json({status:"Ok", message: "certificate added successfully" });
   } catch (err) {
     res.json({ error: err });
   }
@@ -68,7 +68,7 @@ const deleteCertificate = async (req, res) => {
 
     await certificates.deleteOne({ _id: id });
 
-    res.json({ message: "certificates deleted successfully" });
+    res.json({status:"Ok", message: "certificates deleted successfully" });
   } catch (err) {
     res.json({ error: err });
   }

@@ -6,7 +6,7 @@ const secretKey = process.env.SECRET_KEY;
 
 const getSkills = async (req, res) => {
   const getSkills = await skills.find({});
-  res.json({ skills: getSkills });
+  res.json({status:"Ok", skills: getSkills });
 };
 
 const updateSkill = async (req, res) => {
@@ -26,7 +26,7 @@ const updateSkill = async (req, res) => {
 
     await skills.updateOne({ _id: id }, { $set: data });
 
-    res.json({ message: "skill updated successfully" });
+    res.json({status:"Ok", message: "skill updated successfully" });
   } catch (err) {
     res.json({ error: err });
   }
@@ -48,7 +48,7 @@ const createSkill = async (req, res) => {
 
     await skills.create(data);
 
-    res.json({ message: "skill added successfully" });
+    res.json({status:"Ok", message: "skill added successfully" });
   } catch (err) {
     res.json({ error: err });
   }
@@ -66,7 +66,7 @@ const deleteSkill = async (req, res) => {
 
     await skills.deleteOne({ _id: id });
 
-    res.json({ message: "skill deleted successfully" });
+    res.json({status:"Ok", message: "skill deleted successfully" });
   } catch (err) {
     res.json({ error: err });
   }

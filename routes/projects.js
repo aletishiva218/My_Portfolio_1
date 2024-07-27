@@ -6,7 +6,7 @@ const secretKey = process.env.SECRET_KEY;
 
 const getProjects = async (req, res) => {
   const getProjects = await projects.find({});
-  res.json({ projects: getProjects });
+  res.json({status:"Ok", projects: getProjects });
 };
 
 const updateProject = async (req, res) => {
@@ -27,7 +27,7 @@ const updateProject = async (req, res) => {
 
     await projects.updateOne({ _id: id }, { $set: data });
 
-    res.json({ message: "project updated successfully" });
+    res.json({status:"Ok", message: "project updated successfully" });
   } catch (err) {
     res.json({ error: err });
   }
@@ -50,7 +50,7 @@ const createProject = async (req, res) => {
 
     await projects.create(data);
 
-    res.json({ message: "project added successfully" });
+    res.json({status:"Ok", message: "project added successfully" });
   } catch (err) {
     res.json({ error: err });
   }
@@ -68,7 +68,7 @@ const deleteProject = async (req, res) => {
 
     await projects.deleteOne({ _id: id });
 
-    res.json({ message: "project deleted successfully" });
+    res.json({status:"Ok", message: "project deleted successfully" });
   } catch (err) {
     res.json({ error: err });
   }

@@ -24,8 +24,8 @@ app.use(express.static(uploadFolder))
 
 app.get("/personal",getData)
 app.patch("/personal",updatedData)
-app.patch("/personal/image",upload,uploadImage.single("image"),(req,res)=>{res.json({"message":"image uploaded successfully"})})
-app.patch("/personal/cv",upload,uploadCv.single("cv"),(req,res)=>{res.json({"message":"cv uploaded successfully"})})
+app.patch("/personal/image",upload,uploadImage.single("image"),(req,res)=>{res.json({status:"Ok","message":"image uploaded successfully"})})
+app.patch("/personal/cv",upload,uploadCv.single("cv"),(req,res)=>{res.json({status:"Ok","message":"cv uploaded successfully"})})
 
 app.get("/projects",getProjects);
 app.patch("/projects/:id",updateProject);
