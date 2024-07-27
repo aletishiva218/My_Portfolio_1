@@ -35,4 +35,14 @@ const updatedData = async (req, res) => {
   }
 };
 
-export { getData, updatedData };
+const upload = (req,res,next) => {
+  const { key } = req.query;
+  try{
+    if(key!=secretKey) throw "incorrect KEY";
+    next();
+  }catch(err){
+    res.json({error:err})
+  }
+}
+
+export { getData, updatedData,upload };
