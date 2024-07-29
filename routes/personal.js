@@ -1,3 +1,4 @@
+import fs from "fs";
 import { personal } from "../Database/Modal.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -35,14 +36,63 @@ const updatedData = async (req, res) => {
   }
 };
 
-const upload = (req,res,next) => {
+
+const uploadImg =  (req, res) => {
   const { key } = req.query;
-  try{
-    if(key!=secretKey) throw "incorrect KEY";
-    next();
-  }catch(err){
-    res.json({error:err})
+  try {
+
+    if(key!=secretKey) throw "Incorrect KEY";
+    // Get the temporary path of the uploaded file
+    const tempPath = req.file.path;
+
+    // Read the file
+    fs.readFile(tempPath, async (err, data) => {
+      if (err) throw err;
+
+      // Convert image file to Base64 encoding
+      const base64Image = data.toString('base64');
+      await personal.updateOne({},{$set:{image:"data:image/png;base64,"+base64Image}})
+      // Remove the temporary file
+      fs.unlink(tempPath, (err) => {
+        if (err) throw err;
+        console.log('Temp File Deleted');
+      });
+
+      // Send the Base64 string back to client
+      res.json({status:"Ok",message:"updated successfully"});
+    });
+  } catch (err) {
+    res.status(500).send({error:err});
   }
 }
 
-export { getData, updatedData,upload };
+const uploadResume =  (req, res) => {
+  const { key } = req.query;
+  try {
+
+    if(key!=secretKey) throw "Incorrect KEY";
+    // Get the temporary path of the uploaded file
+    const tempPath = req.file.path;
+
+    // Read the file
+    fs.readFile(tempPath, async (err, data) => {
+      if (err) throw err;
+
+      // Convert image file to Base64 encoding
+      const base64Image = data.toString('base64');
+      await personal.updateOne({},{$set:{cv:"data:application/pdf;base64,"+base64Image}})
+      // Remove the temporary file
+      fs.unlink(tempPath, (err) => {
+        if (err) throw err;
+        console.log('Temp File Deleted');
+      });
+
+      // Send the Base64 string back to client
+      res.json({status:"Ok",message:"updated successfully"});
+    });
+  } catch (err) {
+    res.status(500).send({error:err});
+  }
+}
+
+export { getData, updatedData,uploadImg,uploadResume };

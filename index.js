@@ -4,7 +4,7 @@ import express from "express";
 import {getProjects,updateProject, createProject, deleteProject} from "./routes/projects.js";
 import {getSkills,updateSkill, createSkill, deleteSkill} from "./routes/skills.js";
 import {getCertificates,updateCertificate, createCertificate, deleteCertificate} from "./routes/certificates.js";
-import {getData,updatedData,upload} from "./routes/personal.js";
+import {getData,updatedData,uploadImg,uploadResume} from "./routes/personal.js";
 import { uploadCv,uploadImage } from "./utils/multer.js";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -24,8 +24,8 @@ app.use(express.static(uploadFolder))
 
 app.get("/personal",getData)
 app.patch("/personal",updatedData)
-app.patch("/personal/image",upload,uploadImage.single("image"),(req,res)=>{res.json({status:"Ok","message":"image uploaded successfully"})})
-app.patch("/personal/cv",upload,uploadCv.single("cv"),(req,res)=>{res.json({status:"Ok","message":"cv uploaded successfully"})})
+app.patch('/personal/image',uploadImage.single('image'),uploadImg)
+app.patch("/personal/cv",uploadCv.single("cv"),uploadResume)
 
 app.get("/projects",getProjects);
 app.patch("/projects/:id",updateProject);

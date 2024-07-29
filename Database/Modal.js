@@ -24,6 +24,8 @@ const certificatesSchema = mongoose.Schema({
 const personalSchema = mongoose.Schema({
     name:String,
     skills:Array,
+    image:String,
+    cv:String,
     keywords:Array,
     about:String,
     description:Array
