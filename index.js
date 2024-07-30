@@ -5,6 +5,7 @@ import {getProjects,updateProject, createProject, deleteProject} from "./routes/
 import {getSkills,updateSkill, createSkill, deleteSkill} from "./routes/skills.js";
 import {getCertificates,updateCertificate, createCertificate, deleteCertificate} from "./routes/certificates.js";
 import {getData,updatedData,uploadImg,uploadResume} from "./routes/personal.js";
+import sendMail from "./routes/sendMail.js";
 import { uploadCv,uploadImage } from "./utils/multer.js";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -41,6 +42,8 @@ app.get("/skills",getSkills);
 app.patch("/skills/:id",updateSkill);
 app.post("/skills",createSkill);
 app.delete("/skills/:id",deleteSkill);
+
+app.post("/message",sendMail)
 
 
 app.listen(port,()=>console.log("Server is started at port",port))
