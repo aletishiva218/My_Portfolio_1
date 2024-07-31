@@ -8,7 +8,7 @@ const Certificate = ({title,image,descript,link}) => {
       <span>
         {descript}
       </span>
-      <a href={link} className="link">
+      <a href={link} className="link" download>
         Explore
       </a>
     </div>
