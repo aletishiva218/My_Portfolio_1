@@ -8,7 +8,7 @@ const Project = ({title,image,link,descript}) => {
       <span>
         {descript}
       </span>
-      <a href={link} className="link">
+      <a href={link} className="link" target="_blank">
         Explore
       </a>
     </div>
