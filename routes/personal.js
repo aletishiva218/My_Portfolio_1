@@ -7,11 +7,6 @@ const secretKey = process.env.SECRET_KEY;
 
 const getData = async (req, res) => {
   let getData = await personal.findOne({});
-  getData = {
-    image: req.headers.host + "/Shiva_Aleti.jpg",
-    cv: req.headers.host + "/Shiva_Aleti_Resume.pdf",
-    ...getData._doc,
-  };
   res.json({ status:"Ok",personal: getData });
 };
 
@@ -36,63 +31,18 @@ const updatedData = async (req, res) => {
   }
 };
 
-
-const uploadImg =  (req, res) => {
-  const { key } = req.query;
-  try {
-
-    if(key!=secretKey) throw "Incorrect KEY";
-    // Get the temporary path of the uploaded file
-    const tempPath = req.file.path;
-
-    // Read the file
-    fs.readFile(tempPath, async (err, data) => {
-      if (err) throw err;
-
-      // Convert image file to Base64 encoding
-      const base64Image = data.toString('base64');
-      await personal.updateOne({},{$set:{image:"data:image/png;base64,"+base64Image}})
-      // Remove the temporary file
-      fs.unlink(tempPath, (err) => {
-        if (err) throw err;
-        console.log('Temp File Deleted');
-      });
-
-      // Send the Base64 string back to client
-      res.json({status:"Ok",message:"updated successfully"});
-    });
-  } catch (err) {
-    res.status(500).send({error:err});
-  }
+const uploadImg = async (req,res) => {
+  let data = req.body.toString('base64');
+  data = "data:image/png;base64,"+data;
+  await personal.updateOne({},{image:data});
+  res.send({status:"Ok",message:"Image uploaded successfully"});
 }
 
-const uploadResume =  (req, res) => {
-  const { key } = req.query;
-  try {
-
-    if(key!=secretKey) throw "Incorrect KEY";
-    // Get the temporary path of the uploaded file
-    const tempPath = req.file.path;
-
-    // Read the file
-    fs.readFile(tempPath, async (err, data) => {
-      if (err) throw err;
-
-      // Convert image file to Base64 encoding
-      const base64Image = data.toString('base64');
-      await personal.updateOne({},{$set:{cv:"data:application/pdf;base64,"+base64Image}})
-      // Remove the temporary file
-      fs.unlink(tempPath, (err) => {
-        if (err) throw err;
-        console.log('Temp File Deleted');
-      });
-
-      // Send the Base64 string back to client
-      res.json({status:"Ok",message:"updated successfully"});
-    });
-  } catch (err) {
-    res.status(500).send({error:err});
-  }
+const uploadResume =async (req,res) => {
+  let data = req.body.toString('base64');
+  data = "data:application/pdf;base64,"+data;
+  await personal.updateOne({},{cv:data});
+  res.send({status:"Ok",message:"cv uploaded successfully"});
 }
 
 export { getData, updatedData,uploadImg,uploadResume };

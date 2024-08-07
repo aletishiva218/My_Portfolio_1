@@ -6,7 +6,6 @@ import {getSkills,updateSkill, createSkill, deleteSkill} from "./routes/skills.j
 import {getCertificates,updateCertificate, createCertificate, deleteCertificate} from "./routes/certificates.js";
 import {getData,updatedData,uploadImg,uploadResume} from "./routes/personal.js";
 import sendMail from "./routes/sendMail.js";
-import { uploadCv,uploadImage } from "./utils/multer.js";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config()
@@ -25,8 +24,8 @@ app.use(express.static(uploadFolder))
 
 app.get("/personal",getData)
 app.patch("/personal",updatedData)
-app.patch('/personal/image',uploadImage.single('image'),uploadImg)
-app.patch("/personal/cv",uploadCv.single("cv"),uploadResume)
+app.patch('/personal/image',express.raw({ type: 'image/*', limit: '10mb' }),uploadImg)
+app.patch("/personal/cv",express.raw({ type: 'application/*', limit: '10mb' }),uploadResume)
 
 app.get("/projects",getProjects);
 app.patch("/projects/:id",updateProject);
