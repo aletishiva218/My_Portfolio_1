@@ -12,15 +12,10 @@ dotenv.config()
 
 const port = process.env.PORT;
 
-const _dirname = path.resolve();
-const uploadFolder = path.join(_dirname,"uploads");
-fs.mkdirSync(uploadFolder,{recursive:true})
-
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use(express.static(uploadFolder))
 
 app.get("/personal",getData)
 app.patch("/personal",updatedData)
