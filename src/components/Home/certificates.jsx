@@ -26,7 +26,7 @@ const ChangeType = ({got,certificates}) => {
 
 const Certificates = () => {
   const [data,setData] = useState({status:false})
-  const url = "https://my-portfolio-1-o1ol.onrender.com/";
+  const url = "https://shivaaleti-server.vercel.app/";
   useEffect(()=>{
     axios.get(url+"certificates").then(response=>{
      const {data} = response;    

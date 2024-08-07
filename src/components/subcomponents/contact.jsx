@@ -15,7 +15,7 @@ const Contact  = () => {
   }
   const onSubmit = (event) => {
     event.preventDefault();
-    const url = "https://my-portfolio-1-o1ol.onrender.com/";
+    const url = "https://shivaaleti-server.vercel.app/";
     axios({ method: "post", url: url + "message", data: data })
       .then((response) => {
         setMessage(response.data);
